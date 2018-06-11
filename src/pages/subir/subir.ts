@@ -43,20 +43,19 @@ export class SubirPage {
 
   seleccionar_foto(){
 
-    let opciones: ImagePickerOptions = {
-      quality: 70,
-      outputType: 1,
-      maximumImagesCount: 1
+    let opciones: CameraOptions = {
+      quality: 50,
+      destinationType: this.camera.DestinationType.DATA_URL,
+      encodingType: this.camera.EncodingType.JPEG,
+      mediaType: this.camera.MediaType.PICTURE,
+      sourceType:2
     }
     
-    this.imagePicker.getPictures(opciones).then((results) => {
-      for (var i = 0; i < results.length; i++) {
-          //console.log('Image URI: ' + results[i]);
-          this.imagenPreview = 'data:image/jpeg;base64,' + results[i];
-      }
+    this.camera.getPicture(opciones).then((result) => {
+      this.imagenPreview = 'data:image/jpeg;base64,' + result;
     }, (err) => { 
 
-      console.log("Error en selector: " , JSON.stringify(err));
+      console.log("Error en camara: " , JSON.stringify(err));
       
     });  
 
