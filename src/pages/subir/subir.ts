@@ -51,12 +51,13 @@ export class SubirPage {
     
     this.imagePicker.getPictures(opciones).then((results) => {
       for (var i = 0; i < results.length; i++) {
-          console.log('Image URI: ' + results[i]);
+          //console.log('Image URI: ' + results[i]);
+          this.imagenPreview= 'data:image/jpeg;base64,' + results[i];
       }
     }, (err) => { 
 
       console.log("Error en selector: " , JSON.stringify(err));
-
+      
     });  
 
   }
