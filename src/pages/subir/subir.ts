@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
+
 
 @Component({
   selector: 'page-subir',
@@ -13,7 +15,8 @@ export class SubirPage {
   imagenPreview:string;
 
   constructor(private viewCtrl: ViewController,
-    private camera: Camera) {
+              private camera: Camera,
+              private imagePicker: ImagePicker) {
   }
 
   cerrar_modal() {
@@ -36,6 +39,26 @@ export class SubirPage {
       // Handle error
       console.log("ERROR EN CAMARA", JSON.stringify(err));
     });
+  }
+
+  seleccionar_foto(){
+
+    let opciones: ImagePickerOptions = {
+      quality: 70,
+      outputType: 1,
+      maximumImagesCount: 1
+    }
+    
+    this.imagePicker.getPictures(opciones).then((results) => {
+      for (var i = 0; i < results.length; i++) {
+          console.log('Image URI: ' + results[i]);
+      }
+    }, (err) => { 
+
+      console.log("Error en selector: " , JSON.stringify(err));
+
+    });  
+
   }
 
 }

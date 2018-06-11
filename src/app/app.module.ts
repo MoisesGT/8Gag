@@ -10,6 +10,8 @@ import { SubirPage } from '../pages/subir/subir';
 
 //Plugins
 import { Camera } from '@ionic-native/camera';
+import { ImagePicker } from '@ionic-native/image-picker';
+
 
 //Pipes
 import { PipesModule } from '../pipes/pipes.module';
@@ -53,6 +55,7 @@ export const firebaseConfig = {
     SplashScreen,
     AngularFireDatabase,
     Camera,
+    ImagePicker,
     { provide: ErrorHandler, useClass: IonicErrorHandler }
   ]
 })
