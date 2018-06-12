@@ -70,7 +70,9 @@ export class SubirPage {
       titulo: this.titulo
     }
 
-    this._cap.cargar_image_firebase(archivo);
+    this._cap.cargar_image_firebase(archivo).then(
+      () =>this.cerrar_modal()
+    );
 
   }
 
