@@ -2,8 +2,7 @@ import { Component } from '@angular/core';
 import { ViewController } from 'ionic-angular';
 
 import { Camera, CameraOptions } from '@ionic-native/camera';
-import { ImagePicker, ImagePickerOptions } from '@ionic-native/image-picker';
-
+import { CargaArchivoProvider } from '../../providers/carga-archivo/carga-archivo';
 
 @Component({
   selector: 'page-subir',
@@ -13,10 +12,11 @@ export class SubirPage {
 
   titulo: string;
   imagenPreview:string;
+  imagen64:string;
 
   constructor(private viewCtrl: ViewController,
               private camera: Camera,
-              private imagePicker: ImagePicker) {
+              public _cap:CargaArchivoProvider) {
   }
 
   cerrar_modal() {
@@ -35,6 +35,7 @@ export class SubirPage {
       // imageData is either a base64 encoded string or a file URI
       // If it's base64:
       this.imagenPreview = 'data:image/jpeg;base64,' + imageData;
+      this.imagen64=imageData;
     }, (err) => {
       // Handle error
       console.log("ERROR EN CAMARA", JSON.stringify(err));
@@ -52,12 +53,24 @@ export class SubirPage {
     }
     
     this.camera.getPicture(opciones).then((result) => {
-      this.imagenPreview = 'data:image/jpeg;base64,' + result;
+    this.imagenPreview = 'data:image/jpeg;base64,' + result;
+    this.imagen64=result;
     }, (err) => { 
 
       console.log("Error en camara: " , JSON.stringify(err));
       
     });  
+
+  }
+
+  crear_post(){
+    
+    let archivo = {
+      img:this.imagen64,
+      titulo: this.titulo
+    }
+
+    this._cap.cargar_image_firebase(archivo);
 
   }
 
