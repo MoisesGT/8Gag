@@ -10,6 +10,7 @@ import { SubirPage } from '../pages/subir/subir';
 
 //Plugins
 import { Camera } from '@ionic-native/camera';
+import { SocialSharing } from '@ionic-native/social-sharing';
 
 
 //Pipes
@@ -55,6 +56,7 @@ export const firebaseConfig = {
     SplashScreen,
     AngularFireDatabase,
     Camera,
+    SocialSharing,
     { provide: ErrorHandler, useClass: IonicErrorHandler },
     CargaArchivoProvider
   ]
