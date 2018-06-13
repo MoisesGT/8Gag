@@ -45,7 +45,7 @@ export class HomePage {
 
   share_facebook(post:any){
     this.socialSharing.shareViaFacebook(post.titulo,post.img,post.img).then(() =>{
-      console.log(post + " Compartido en Facebook");
+      console.log(JSON.stringify(post) + " Compartido en Facebook");
     }).catch(
       (error) =>{
         console.log(error);

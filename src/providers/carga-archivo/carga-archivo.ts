@@ -91,10 +91,14 @@ export class CargaArchivoProvider {
     return this.afdb.list('/post',ref => ref.orderByKey().limitToLast(1))
              .valueChanges()
              .map((post:any) =>{
-               console.log(post);
+               console.log("cargar ultimo key");
+               console.log("Post: "+JSON.stringify(post));
                this.lastKey = post[0].key;
-
+               console.log(this.lastKey);
                this.imagenes.push(post[0]);
+               console.log("carga de key terminada");
+             },(err) =>{
+               console.log(JSON.stringify(err));
              })
   }
 
@@ -106,7 +110,9 @@ export class CargaArchivoProvider {
                    .endAt(this.lastKey)
                 ).valueChanges()
                  .subscribe((posts:any) =>{
-                    posts.pop();
+                  if(this.lastKey){
+                    posts.pop();  
+                  }
 
                     if(posts.length == 0){
                       console.log('Ya no hay más registros');
@@ -115,12 +121,12 @@ export class CargaArchivoProvider {
                     }
 
                     this.lastKey = posts[0].key;
-
+                    console.log("Esta el la ultima key: " + this.lastKey);
                     for(let i = posts.length - 1;  i>=0; i--){
                       let post = posts[i];
                       this.imagenes.push(post);
-                      resolve(true);
                     }
+                    resolve(true);
                  })
       });
   }
